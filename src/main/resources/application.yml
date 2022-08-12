@@ -6,6 +6,7 @@ spring:
     name: api-gateway
   cloud:
     gateway:
+      enabled: false  #false because error in postman An expected CSRF token cannot be found
       routes:
         - id: user-service
           uri: lb://user-service
@@ -27,6 +28,11 @@ spring:
                 name: contact-service
                 fallbackuri: forward:/contactServiceFallback
 
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+    #web-application-type: reactive
+
 
 hystrix:
   command:
@@ -42,3 +48,13 @@ management:
     web:
       exposure:
         include: hystrix.stream
+
+jwt:
+  secret: upender@gmail.com
+
+security:
+  ignored=/**:
+  enable-csrf: false
+
+
+
